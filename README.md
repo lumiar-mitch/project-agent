@@ -1,8 +1,10 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/lumiar-logo-dark.png">
-    <img src="assets/lumiar-logo-light.png" alt="Lumiar" width="360">
-  </picture>
+  <a href="https://lumiar.ai">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/lumiar-logo-dark.png">
+      <img src="assets/lumiar-logo-light.png" alt="Lumiar" width="360">
+    </picture>
+  </a>
 </p>
 
 # Project Agent
