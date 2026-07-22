@@ -47,7 +47,7 @@ Purpose: the boundary. Ask:
 
 Write the scope narrative into `PROJECT.md` under **Scope** (and it seeds
 `wiki/foundation/scope.md` later during ingest). For each firm constraint, **seed a constraint
-register item** `registers/constraints/CON-### Title.md` with `statement, category(time|cost|scope|resource|regulatory|technical),
+register item** `registers/constraints/CON-### Title.md` with `title, statement, category(time|cost|scope|resource|regulatory|technical),
 authority, negotiable, implications`. Read the constraint back before filing.
 
 ## Block 3 — Governance & people
@@ -78,14 +78,30 @@ Purpose: the load-bearing numbers and dates. Ask:
 - Any assumptions the plan currently rests on (e.g. "vendor delivers by August", "funding
   approved for phase 2").
 - Any dependencies on other teams, projects, or third parties.
+- Any known risks (uncertain future events), and any current, already-happening problems (issues).
 
-Write budget and baseline dates into `PROJECT.md` under **Hard facts**. For each stated
-assumption, **seed an assumption register item** `registers/assumptions/ASM-### Statement.md`
-with `statement, owner, made(today), validate_by, validation_approach, status: unvalidated,
-impact_if_wrong` — press gently for a `validate_by` date and an owner, but if none is given, file
-it with those fields blank and note them in Open particulars. For each dependency, seed
-`registers/dependencies/DEP-### Description.md` with `description, direction(inbound|outbound),
-counterpart, owner, needed_by, criticality(1–3), status, linked_risk`.
+Write budget and baseline dates into `PROJECT.md` under **Hard facts**. Then seed the RAIDC items the
+PM names. An interview yields one-liners, not fully-substantiated items — so seed everything the PM
+gives you using the **proposed/provisional convention** (`registers/_schemas/risk.md` §2a): the agent
+never invents an owner or a rating, it files a well-formed placeholder for the PM to confirm.
+
+- For each stated **assumption**, seed `registers/assumptions/ASM-### Title.md` with
+  `title, statement, owner, made(today), validate_by, validation_approach, status: unvalidated,
+  impact_if_wrong`. If no owner or `validate_by` is given, file it with `owner: TBC`,
+  `provisional: true`, an agent-suggested provisional `validate_by`, and note the gap in Open particulars.
+- For each **dependency**, seed `registers/dependencies/DEP-### Title.md` with
+  `title, description, direction(inbound|outbound), counterpart, owner, needed_by, criticality(1–3),
+  status, linked_risk`. Use `owner: TBC` + `provisional: true` where the owner is not given.
+- For each **risk** named, seed `registers/risks/RSK-### Title.md` with `status: proposed`,
+  `provisional: true`, `owner: TBC`, a provisional (agent-suggested) `probability`/`impact` and
+  `review` date, and a cause → risk → effect statement drafted from what the PM said. Confirm the
+  ratings and owner are the PM's to set later.
+- If the PM names a **current, already-happening problem**, seed an **issue**
+  `registers/issues/ISS-### Title.md` with `status: proposed`, `provisional: true`, `owner: TBC` and a
+  provisional `priority`/`target_date` — not a risk (it has already happened).
+
+Everything seeded here is `proposed`/`provisional` until the PM confirms owners and ratings; list the
+confirmations still needed in Open particulars.
 
 ## Handling unanswered questions
 

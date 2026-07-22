@@ -43,7 +43,7 @@ the one you just made). Everything the brain creates will live inside this folde
 In Claude Code, with your empty folder open, paste this and send it:
 
 ```
-Read https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.0/bootstrap/BOOTSTRAP.md and build my Project Agent in this folder.
+Read https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.1/bootstrap/BOOTSTRAP.md and build my Project Agent in this folder.
 ```
 
 That URL is the **bootstrap** — an executable set of instructions (also published as a gist for

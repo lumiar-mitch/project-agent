@@ -9,11 +9,13 @@ A **constraint** is a fixed boundary the project must work within — a limit on
 | field | type / enum | required? | description |
 |---|---|---|---|
 | `id` | string `CON-###` | yes | Immutable identifier. |
+| `title` | string | yes | Short label naming the constraint — drives the `CON-### <title>.md` filename. The fuller `statement` is the secondary/body field. |
 | `statement` | string | yes | The boundary, stated as a hard limit ("Go-live must be on or before…"). |
 | `category` | `time` \| `cost` \| `scope` \| `resource` \| `regulatory` \| `technical` | yes | Type of boundary. |
 | `authority` | string | yes | Who imposed it (the source of the constraint — a person, body, contract, or law). |
 | `negotiable` | boolean `true` \| `false` | yes | Whether it can be challenged/changed, and by whom if so (note in body). |
 | `implications` | string | yes | What the constraint forces the project to do or forgo. |
+| `provisional` | boolean `true` \| `false` (default `false`) | no | When `true`, fields such as `authority`/`negotiable` are agent-suggested from a one-liner, awaiting PM confirmation — see the canonical convention in `risk.md` §2a. |
 | `links[]` | list of IDs / `[[wikilinks]]` / raw citations | no | Related `RSK`/`ASM`/`DEP`/`DEC`, source. |
 
 ## 3. Body structure

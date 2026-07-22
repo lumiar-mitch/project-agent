@@ -14,7 +14,7 @@ The instructions below are addressed to you, the executing agent.
 Set the pinned release base URL you'll fetch from:
 
 ```
-BASE_URL = https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.0/
+BASE_URL = https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.1/
 ```
 
 Everything you scaffold comes from this pinned tag — never `main` — so an instance is reproducible
@@ -65,9 +65,14 @@ each key stakeholder named; capture the team in `wiki/foundation/team.md`.
 **Block D — Hard facts**
 - Budget
 - Key dates / milestones
-- Known constraints, risks, assumptions
-→ write budget/dates to `PROJECT.md` (Hard facts); seed `CON-###`, `RSK-###`, `ASM-###` items for
-each constraint/risk/assumption named, and summarise + link them in `PROJECT.md`.
+- Known constraints, risks, assumptions, dependencies, and any current already-happening problems
+→ write budget/dates to `PROJECT.md` (Hard facts); seed `CON-###`, `ASM-###`, `DEP-###` items, and
+**seed `RSK-###` for each risk named and `ISS-###` for each current problem named**, then summarise +
+link them in `PROJECT.md`. Interview answers are one-liners, so seed every risk/issue (and any item
+whose owner or ratings aren't given) using the **proposed/provisional convention**
+(`registers/_schemas/risk.md` §2a): `status: proposed`, `provisional: true`, `owner: TBC`, and
+clearly-marked provisional ratings/dates for the PM to confirm. Never invent an owner or a rating.
+(This matches the `project-interview` skill's Block 4 exactly.)
 
 Also fill `USER.md` from whatever the PM tells you about themselves (name, role, org, reporting line,
 how they like you to work). Anything unanswered → `PROJECT.md → Open particulars` as an unchecked box.
@@ -99,7 +104,11 @@ as needed:
   interview; leave the rest as placeholders for later.
 
 Also create every empty directory the manifest lists under `directories:` (so the drop zones and
-register folders exist from the start).
+register folders exist from the start). Git does not track empty directories, so **after creating
+each directory, drop an empty `.gitkeep` file into every directory that would otherwise be empty** —
+all of: `raw/inbox`, every `raw/sources/*`, every `registers/<type>` folder, `views/`, and the empty
+`wiki/*` subfolders. Without these, a later `git clone` of the instance would silently lose the drop
+zones and register folders. (A directory that already receives a scaffolded file does not need one.)
 
 If a fetch fails (e.g. a corporate proxy blocks `raw.githubusercontent.com`), stop and tell the PM
 plainly which URL failed and that the repo must be reachable at the pinned tag — don't fabricate file
@@ -110,8 +119,10 @@ contents.
 ## 5. Initialise git (silently)
 
 Run `git init` in the instance root and make a single initial commit ("bootstrap: scaffold PM Second
-Brain instance"). Do this quietly — mention it in one line at the end, don't make a ceremony of it.
-Git history gives the PM human-edit detection, an audit trail, and safe reverts.
+Brain instance"). **This initial commit must `git add` and track the `.gitkeep` files created in
+step 4** — that is what preserves the empty drop zones and register folders in a clone. Do this
+quietly — mention it in one line at the end, don't make a ceremony of it. Git history gives the PM
+human-edit detection, an audit trail, and safe reverts.
 
 ---
 

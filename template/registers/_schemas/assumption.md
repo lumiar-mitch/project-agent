@@ -2,20 +2,22 @@
 
 ## 1. Purpose
 
-An **assumption** is something taken to be true, for planning purposes, that has *not yet been validated*. The register makes each assumption explicit, owned, and time-boxed to a validation date — so an unexamined belief cannot quietly become a project failure. One file per assumption under `registers/assumptions/ASM-### Short title.md`. An `invalidated` assumption **must** spawn a [[risk]] or [[issue]].
+An **assumption** is something taken to be true, for planning purposes, that has *not yet been validated*. The register makes each assumption explicit, owned, and time-boxed to a validation date — so an unexamined belief cannot quietly become a project failure. One file per assumption under `registers/assumptions/ASM-### Short title.md`. An `invalidated` assumption **must** spawn a downstream item: an [[issue]] for any impact already realised, and/or a [[risk]] for any residual forward exposure — both when both apply (see the processing rule).
 
 ## 2. Frontmatter schema
 
 | field | type / enum | required? | description |
 |---|---|---|---|
 | `id` | string `ASM-###` | yes | Immutable identifier. |
+| `title` | string | yes | Short label naming the assumption — drives the `ASM-### <title>.md` filename. The fuller `statement` is the secondary/body field. |
 | `statement` | string | yes | The thing assumed true, stated plainly and testably. |
-| `owner` | string — **a named person, never a team** | yes | Who is accountable for validating it. |
+| `owner` | string — **a named person, never a team** (or `TBC` while unconfirmed) | yes | Who is accountable for validating it. May be `TBC` with `provisional: true` when created from a one-liner (see `risk.md` §2a); the agent never invents a name. |
 | `made` | date `YYYY-MM-DD` | yes | When the assumption was recorded. |
 | `validate_by` | date `YYYY-MM-DD` | yes | Deadline to confirm or disprove. Drives the stale sweep — past this date and still `unvalidated` is flagged. |
 | `validation_approach` | string | yes | How it will be tested (who to ask, what evidence settles it). |
-| `status` | `unvalidated` \| `validated` \| `invalidated` | yes | Lifecycle. `invalidated` must spawn a `RSK` or `ISS`. |
+| `status` | `unvalidated` \| `validated` \| `invalidated` | yes | Lifecycle. `invalidated` must spawn a downstream `ISS` (realised impact) and/or `RSK` (residual exposure) — both when both apply. |
 | `impact_if_wrong` | string | yes | What breaks if the assumption proves false — the reason it matters. |
+| `provisional` | boolean `true` \| `false` (default `false`) | no | When `true`, `owner`/`validate_by` are agent-suggested, awaiting PM confirmation — see the canonical convention in `risk.md` §2a. |
 | `links[]` | list of IDs / `[[wikilinks]]` / raw citations | no | Spawned `RSK`/`ISS`, related `DEP`/`CON`, source. |
 
 ## 3. Body structure
@@ -70,6 +72,10 @@ When an assumption arrives — from an uploaded register, a meeting, or chat:
 1. **Validate against `standards/risk-quality.md`.** Require a *named* `owner`, a `validate_by` date, and a `validation_approach`. An assumption with no owner or no validation date is incomplete — the agent asks for both.
 2. **Coach the framing (FULL coaching).** Rewrite vague assumptions ("resourcing will be fine") into a testable statement with an explicit `impact_if_wrong`, and leave a coach's note.
 3. **Dedupe** against open assumptions.
-4. **Auto-spawn (hard rule).** On `status: invalidated`, create a linked `RSK` (if the exposure is still uncertain) or `ISS` (if the consequence is now real), set `links`, and tell the PM. Never leave an invalidated assumption without a downstream item.
+4. **Auto-spawn (hard rule).** On `status: invalidated`, never leave the assumption without a downstream item. Decide by what the invalidation has actually done:
+   - If it has **already caused a problem** → spawn an `ISS` for the realised impact.
+   - If **forward uncertainty remains** → spawn an `RSK` for the residual exposure.
+   - If **both apply** (a problem has landed *and* more could follow) → spawn **both**: an `ISS` for the realised impact and an `RSK` for the residual exposure. This both-apply case is the common one; do not force a single choice.
+   Link every spawned item back to the assumption, and — when both are spawned — link the `ISS` and `RSK` to each other. Set `links`, and tell the PM.
 5. Flag assumptions past `validate_by` in the weekly stale sweep.
 6. File as received in `raw/`, write the improved version to the register, regenerate `views/raid.md`, and report before/after.

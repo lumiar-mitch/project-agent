@@ -27,8 +27,11 @@ The agent applies these tests to every risk on ingest and in review:
   a risk. The risk is what that cause makes uncertain.
 - [ ] **Not an effect masquerading as a risk.** "The project will be late" is an effect. The risk is
   the uncertain event that would cause lateness.
-- [ ] **Named owner.** A specific person, never a team, a role-in-the-abstract, or "TBC". The owner
-  is who manages the response, not who's to blame.
+- [ ] **Named owner.** A specific person, never a team or a role-in-the-abstract. The owner is who
+  manages the response, not who's to blame. The one allowed exception is a **`proposed` +
+  `provisional: true`** item created from a one-liner, which may carry `owner: TBC` pending PM
+  confirmation (see the proposed/provisional convention in `registers/_schemas/risk.md` §2a) — the
+  agent never *invents* a named owner; it holds `TBC` and may suggest a candidate.
 - [ ] **Probability and impact both scored** (1–5 each), with severity = P × I maintained by the agent.
 - [ ] **At least one mitigation, and each mitigation is itself an action** with an owner and a due
   date (linked ACT). A mitigation with no owner/date is a wish.
@@ -78,6 +81,12 @@ it applies the fix silently and reports the pattern in the weekly digest.
 - Convert an already-happened "risk" into an **issue** (ISS), and note the reframe.
 - Chase a missing review date forward to a sensible default and flag it as provisional.
 - Flag duplicates and propose a merge.
+- **File an under-substantiated item as a placeholder, not a blank.** When a risk arrives as a bare
+  one-liner (interview, chat, or a lazy register row) with no owner or ratings, file it as
+  `status: proposed` + `provisional: true` with `owner: TBC` and clearly-marked *provisional*
+  (agent-suggested) probability/impact, per `registers/_schemas/risk.md` §2a. This is a well-formed
+  placeholder — every mandatory field is present but flagged as awaiting confirmation. It stays
+  `proposed` until the PM confirms the owner and the ratings (which remain the PM's call, below).
 
 **Raise with the PM — do not decide (the accountability line):**
 - **Any probability or impact rating**, or a change to one. Ratings are the PM's call; the agent

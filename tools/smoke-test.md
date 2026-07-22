@@ -19,7 +19,7 @@ result. If any step fails, stop and fix before release.
 
 2. Open the empty folder in Claude Code and paste the one-line command:
    ```
-   Read https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.0/bootstrap/BOOTSTRAP.md and build my Project Agent in this folder.
+   Read https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.1/bootstrap/BOOTSTRAP.md and build my Project Agent in this folder.
    ```
    **Expected:** Claude fetches the bootstrap and begins an interview rather than dumping files.
 
@@ -53,6 +53,18 @@ result. If any step fails, stop and fix before release.
      `action-quality`, `stakeholder-coverage`, `governance-pack`, `meeting-minutes`
    - `.claude/skills/` with all six: `project-interview`, `ingest`, `weekly-review`,
      `risk-register-review`, `status-drift`, `governance-prep`
+   - a `.gitkeep` file in every otherwise-empty scaffold directory: `raw/inbox/`, every
+     `raw/sources/*/`, every `registers/<type>/` folder, `views/`, and each empty `wiki/*` subfolder
+
+   Then verify those `.gitkeep` files are **git-tracked** (committed in the initial bootstrap commit),
+   which is what makes a clone preserve the structure:
+   ```
+   git ls-files -- '**/.gitkeep' | sort
+   ```
+   **Expected:** `git ls-files` lists a `.gitkeep` for `raw/inbox`, every `raw/sources/*`, every
+   `registers/<type>` folder, `views/`, and each empty `wiki/*` subfolder — they are committed, not
+   merely present. Optionally `git clone` the instance to a temp dir and confirm the empty directories
+   survive the clone.
 
 7. Spot-check that no file contains an unresolved template placeholder (e.g. `{{PROJECT_NAME}}`).
    **Expected:** none in the identity files or seeded registers.

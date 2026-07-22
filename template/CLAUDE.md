@@ -173,6 +173,16 @@ Before creating any register item, search the relevant register for an open item
 thing. If one exists, update it (and note the new source in its history) rather than creating a
 duplicate. Creating a near-duplicate risk or action is a quality failure — dedupe first.
 
+### Proposed & provisional items
+When you create an item you cannot yet fully substantiate — from an interview one-liner, a chat
+mention, or a lazy uploaded-register row — **do not invent the missing owner or ratings, and do not
+leave required fields blank.** File a well-formed placeholder: `status: proposed`, `provisional: true`,
+`owner: TBC` (never a fabricated name — you may *suggest* a candidate in the body), and clearly-marked
+**provisional** (agent-suggested) ratings/dates. Every mandatory field is present but flagged as
+awaiting the PM's confirmation. The item stays `proposed` until the PM confirms the owner and the
+ratings — only they can — after which `provisional` goes to `false` and it moves to `open`. The
+canonical definition lives in `registers/_schemas/risk.md` §2a; the RAIDC schemas cross-reference it.
+
 ---
 
 ## Workflows
@@ -235,6 +245,29 @@ Coaching and teaching are woven into Ingest (step 5), Capture (step 2) and Revie
 always check against the `standards/` library and record accepted lessons and graduation in
 `wiki/coaching-log.md`. The weekly review reports coaching *patterns*; once a lesson graduates
 (accepted ~3×), stop narrating it and just apply the fix.
+
+---
+
+## Generated views — column spec
+
+`views/` files are **generated, never hand-edited** — regenerated from the registers whenever the
+underlying items change (see Ingest step 7). Every generated file carries, as its first line, the
+header `<!-- GENERATED from registers/ — do not edit; regenerate via ingest/review -->`. To keep
+tables consistent run-to-run, each view has a fixed column set and sort order:
+
+- **`views/raid.md`** — the combined RAID table across risks, issues, assumptions, dependencies and
+  constraints (the `Type` column distinguishes them). Columns:
+  `ID | Type | Title | Owner | P | I | Sev | Status | Review | Links`.
+  Sort by **severity descending, then status**. `Sev` shows the integer with its band in the **view
+  only**, e.g. `12 (high)` — the register scalar stays a bare integer. For non-risk types that have no
+  P/I/severity, leave those cells blank.
+- **`views/actions.md`** — columns `ID | Action | Owner | Due | Status | Origin`.
+  Sort **overdue first, then by due date ascending**.
+- **`views/decisions.md`** — columns `ID | Decision | Status | Decided by | Forum | Date | Resolves`.
+- **`views/stakeholder-map.md`** — an influence/interest table
+  `ID | Name | Infl | Interest | Sentiment | Engagement | Last assessed`, followed by a short note
+  flagging any **high-influence** stakeholder whose sentiment is **stale (>45 days)** since
+  `Last assessed`.
 
 ---
 

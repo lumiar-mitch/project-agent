@@ -10,8 +10,8 @@ An **issue** is a problem that *has already happened* (or is happening now) and 
 |---|---|---|---|
 | `id` | string `ISS-###` | yes | Immutable identifier. |
 | `title` | string | yes | Short noun phrase naming the problem. |
-| `status` | `open` \| `investigating` \| `resolving` \| `resolved` \| `closed` | yes | Lifecycle. `resolved` = fix applied; `closed` = confirmed and verified. |
-| `owner` | string — **a named person, never a team** | yes | Single accountable individual driving resolution. |
+| `status` | `proposed` \| `open` \| `investigating` \| `resolving` \| `resolved` \| `closed` | yes | Lifecycle. `proposed` = created from a one-liner, not yet PM-confirmed (see the proposed/provisional convention in `risk.md` §2a). `resolved` = fix applied; `closed` = confirmed and verified. |
+| `owner` | string — **a named person, never a team** (or `TBC` while `proposed`) | yes | Single accountable individual driving resolution. May be `TBC` while `status: proposed`; must be named before it moves to `open`. |
 | `raised` | date `YYYY-MM-DD` | yes | When the issue was logged. |
 | `target_date` | date `YYYY-MM-DD` | yes | Committed resolution date. Drives the stale/overdue sweep. |
 | `resolved` | date `YYYY-MM-DD` | when resolved | Actual resolution date; blank while open. |
@@ -19,6 +19,7 @@ An **issue** is a problem that *has already happened* (or is happening now) and 
 | `impact` | string | yes | Concrete effect on scope, schedule, cost, or quality (what is actually happening). |
 | `workstream` | string | yes | Which workstream/area it sits in. |
 | `from_risk` | string `RSK-###` | when spawned | The risk that realised into this issue; blank if raised directly. |
+| `provisional` | boolean `true` \| `false` (default `false`) | no | When `true`, `owner` and/or `priority`/`target_date` are agent-suggested, awaiting PM confirmation — see the canonical convention in `risk.md` §2a. Pairs with `status: proposed`. |
 | `links[]` | list of IDs / `[[wikilinks]]` / raw citations | no | Resolving `ACT`s, related `DEC`, source meeting. |
 
 ## 3. Body structure
@@ -72,7 +73,7 @@ the July month-end close cannot be reconciled on time and manual journals will b
 
 When an issue arrives — from an uploaded register, a meeting, chat, or a realised risk:
 
-1. **Validate against `standards/risk-quality.md`** (the RAIDC quality standard). Confirm required fields, a *named* `owner`, and a `target_date`.
+1. **Validate against `standards/risk-quality.md`** (the RAIDC quality standard). Confirm required fields, a *named* `owner`, and a `target_date`. When the issue can only be created from a one-liner (e.g. an interview mention of a current, already-happening problem), file it as `status: proposed` + `provisional: true` with `owner: TBC` and a provisional `priority`/`target_date` per the convention in `risk.md` §2a — never invent the owner or the ratings.
 2. **Distinguish issue from risk (FULL coaching).** If the item is actually *uncertain* (hasn't happened), reframe it as a `RSK` and tell the PM why. If it is a realised risk, ensure `from_risk` points at the originating `RSK` and that the risk is marked `realised`/`closed`.
 3. **Dedupe** against open issues before creating a new file.
 4. **Auto-link.** Each resolution step should be a real `ACT` with owner + due date; create/link them. Link any `DEC` taken.

@@ -9,7 +9,7 @@ raised: 2026-05-14
 review: 2026-06-11
 probability: 3
 impact: 4
-severity: 12 (high)
+severity: 12
 proximity: 2026-11-06
 response: reduce
 workstream: Accessibility

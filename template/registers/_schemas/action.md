@@ -9,6 +9,7 @@ An **action** is a discrete piece of work assigned to *one person* with *one due
 | field | type / enum | required? | description |
 |---|---|---|---|
 | `id` | string `ACT-###` | yes | Immutable identifier. |
+| `title` | string | yes | Short label naming the action — drives the `ACT-### <title>.md` filename. The fuller `description` is the secondary/detail field. |
 | `description` | string | yes | The work to do, as an imperative starting with a verb ("Cleanse allowance codes…"). |
 | `owner` | string — **a named person, never a team** | **yes** | Single accountable person. Missing → not an action; the agent asks who. |
 | `due` | date `YYYY-MM-DD` | **yes** | Committed completion date. Missing → not an action; the agent asks by when. |
@@ -33,6 +34,7 @@ Actions are usually short and can live in frontmatter alone. Use the body when t
 ```markdown
 ---
 id: ACT-032
+title: Cleanse legacy allowance codes
 description: Profile and cleanse legacy allowance codes against the current award before extract
 owner: Tom Fitzgerald
 due: 2026-06-30

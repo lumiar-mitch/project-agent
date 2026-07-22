@@ -9,7 +9,7 @@ A **stakeholder** is any person (or clearly-bounded body) with influence over, o
 | field | type / enum | required? | description |
 |---|---|---|---|
 | `id` | string `STK-###` | yes | Immutable identifier. |
-| `name` | string | yes | The stakeholder's name. |
+| `name` | string | yes | The stakeholder's name. This is the label that drives the `STK-### <name>.md` filename — the title-equivalent for a person (a stakeholder has a name, not a `title`). |
 | `role` | string | yes | Their role/title relevant to the project. |
 | `org` | string | yes | Their organisation or business unit. |
 | `category` | `sponsor` \| `governance` \| `user` \| `supplier` \| `regulator` \| `delivery` \| `impacted` | yes | Type of stakeholder relationship. |

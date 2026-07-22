@@ -9,14 +9,16 @@ A **dependency** is a hand-off between this project and something outside its di
 | field | type / enum | required? | description |
 |---|---|---|---|
 | `id` | string `DEP-###` | yes | Immutable identifier. |
+| `title` | string | yes | Short label naming the dependency — drives the `DEP-### <title>.md` filename. The fuller `description` is the secondary/body field. |
 | `description` | string | yes | What is being handed over, in one line. |
 | `direction` | `inbound` \| `outbound` | yes | Inbound = we need it from someone; outbound = someone needs it from us. |
 | `counterpart` | string | yes | The external party/project/team on the other side of the hand-off. |
-| `owner` | string — **a named person, never a team** | yes | Named person on *our* side accountable for managing this dependency. |
+| `owner` | string — **a named person, never a team** (or `TBC` while unconfirmed) | yes | Named person on *our* side accountable for managing this dependency. May be `TBC` with `provisional: true` when created from a one-liner (see `risk.md` §2a); the agent never invents a name. |
 | `needed_by` | date `YYYY-MM-DD` | yes | Date the hand-off must complete. Drives the stale/at-risk sweep. |
 | `criticality` | integer 1–3 | yes | 1 = critical (blocks the critical path), 2 = major, 3 = minor. |
 | `status` | `pending` \| `on-track` \| `at-risk` \| `met` \| `missed` | yes | Lifecycle of the hand-off. |
 | `linked_risk` | string `RSK-###` | when at-risk | The risk raised for a slipping/threatened dependency; blank otherwise. |
+| `provisional` | boolean `true` \| `false` (default `false`) | no | When `true`, `owner`/`needed_by`/`criticality` are agent-suggested, awaiting PM confirmation — see the canonical convention in `risk.md` §2a. |
 | `links[]` | list of IDs / `[[wikilinks]]` / raw citations | no | Related `ASM`/`CON`, `STK` counterpart, source. |
 
 ## 3. Body structure

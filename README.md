@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/lumiar-logo-dark.png">
+    <img src="assets/lumiar-logo-light.png" alt="Lumiar" width="360">
+  </picture>
+</p>
+
 # Project Agent
 
 **A local-first project agent and assurance coach you run with Claude Code.**
@@ -64,7 +71,7 @@ You need Claude Code (it runs in the desktop app — no terminal required) and a
 your project. Then paste this one line into Claude Code:
 
 ```
-Read https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.0/bootstrap/BOOTSTRAP.md and build my Project Agent in this folder.
+Read https://raw.githubusercontent.com/lumiar-mitch/project-agent/v0.1.1/bootstrap/BOOTSTRAP.md and build my Project Agent in this folder.
 ```
 
 Claude fetches the bootstrap, interviews you about the project (what is it, what is your role,

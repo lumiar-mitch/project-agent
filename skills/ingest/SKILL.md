@@ -24,10 +24,14 @@ When ambiguous, pick the dominant purpose and note the ambiguity in the final re
 ## 3. File to raw/sources — BEFORE you cite anything
 
 Move the file from `raw/inbox/` to `raw/sources/<category>/YYYY-MM-DD Title.ext`, where the date is
-the document's own date (meeting date, report period, signing date), not today's. Map categories to
-folders: meeting→`meetings`, governance→`governance`, status-report→`reports`, register→`registers`,
-charter/reference→`reference`, contract→`contracts`, other→`reference`. Do this move first so every
-citation you write points at the permanent path. Never edit or delete the source once filed.
+the document's own date (meeting date, report period, signing date), not today's. **Date fallback:**
+if the document has no discernible date of its own, use the **ingest date** (today) for the filename,
+and mark it explicitly in every citation of that source, e.g.
+`(undated document; ingested 2026-07-22)`. A real document date is always preferred — only fall back
+when none can be established. Map categories to folders: meeting→`meetings`, governance→`governance`,
+status-report→`reports`, register→`registers`, charter/reference→`reference`, contract→`contracts`,
+other→`reference`. Do this move first so every citation you write points at the permanent path. Never
+edit or delete the source once filed.
 
 ## 4. Extract structured items to registers — DEDUPE first
 
@@ -96,9 +100,13 @@ settles it.
 
 Create or update the narrative pages this source touches:
 meeting→`wiki/meetings/`, governance→`wiki/governance/`, status-report→`wiki/answers/` or the
-relevant workstream page, charter/reference→`wiki/foundation/`, people→`wiki/people/`. Wiki pages
-are synthesis (what it means, how it connects) and link to register IDs — never restate the register
-tables. Update `sources:` counts and `updated:` dates on touched pages.
+relevant workstream page, **register→no dedicated narrative page** (the extracted items already live
+in `registers/` and the source stays in `raw/sources/registers/`; file any genuine *synthesis* of
+what the register revealed — a pattern, a coverage gap, a comparison — in `wiki/answers/`),
+charter/reference→`wiki/foundation/`, contract→`wiki/foundation/` (or the relevant workstream page),
+other→the most relevant existing page, people→`wiki/people/`. Wiki pages are synthesis (what it
+means, how it connects) and link to register IDs — never restate the register tables. Update
+`sources:` counts and `updated:` dates on touched pages.
 
 ## 8. Regenerate derived layers
 

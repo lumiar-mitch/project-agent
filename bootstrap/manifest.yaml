@@ -8,7 +8,7 @@
 # start. The bootstrap (BOOTSTRAP.md) is idempotent: it scaffolds only what is missing and never
 # touches raw/, registers/ contents, or filled-in identity files on a re-run.
 
-version: v0.1.0
+version: v0.1.1
 
 files:
 
@@ -113,6 +113,9 @@ files:
     mode: verbatim
 
 # Empty directories to create in the instance (drop zones, register folders, views, wiki sections).
+# Each of these gets an empty `.gitkeep` file so the (otherwise empty) directory is tracked by git
+# and survives a `git clone` of the instance — the bootstrap creates the `.gitkeep` and the initial
+# commit tracks it (see BOOTSTRAP.md steps 4–5).
 directories:
   - raw/inbox
   - raw/sources/meetings
