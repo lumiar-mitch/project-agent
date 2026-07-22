@@ -1,0 +1,139 @@
+# manifest.yaml — everything the bootstrap scaffolds into a Project Agent instance.
+#
+# For each file: `source` is the path within the pinned repo release; `target` is where it lands in
+# the instance; `mode` is `verbatim` (write exactly as fetched) or `fill-in` (write, then fill the
+# {{placeholders}} the interview answered, leaving the rest for later).
+#
+# `directories` lists empty folders to create so the drop zones and register folders exist from the
+# start. The bootstrap (BOOTSTRAP.md) is idempotent: it scaffolds only what is missing and never
+# touches raw/, registers/ contents, or filled-in identity files on a re-run.
+
+version: v0.1.0
+
+files:
+
+  # --- Spine / identity (instance root) ---
+  - source: template/CLAUDE.md
+    target: CLAUDE.md
+    mode: verbatim
+  - source: template/SOUL.md
+    target: SOUL.md
+    mode: verbatim
+  - source: template/PROJECT.md
+    target: PROJECT.md
+    mode: fill-in
+  - source: template/USER.md
+    target: USER.md
+    mode: fill-in
+  - source: template/STATE.md
+    target: STATE.md
+    mode: fill-in
+
+  # --- Wiki scaffold ---
+  - source: template/wiki/index.md
+    target: wiki/index.md
+    mode: verbatim
+  - source: template/wiki/log.md
+    target: wiki/log.md
+    mode: verbatim
+  - source: template/wiki/coaching-log.md
+    target: wiki/coaching-log.md
+    mode: verbatim
+
+  # --- Register schemas (one per item type + worked example) ---
+  - source: template/registers/_schemas/risk.md
+    target: registers/_schemas/risk.md
+    mode: verbatim
+  - source: template/registers/_schemas/issue.md
+    target: registers/_schemas/issue.md
+    mode: verbatim
+  - source: template/registers/_schemas/assumption.md
+    target: registers/_schemas/assumption.md
+    mode: verbatim
+  - source: template/registers/_schemas/dependency.md
+    target: registers/_schemas/dependency.md
+    mode: verbatim
+  - source: template/registers/_schemas/constraint.md
+    target: registers/_schemas/constraint.md
+    mode: verbatim
+  - source: template/registers/_schemas/decision.md
+    target: registers/_schemas/decision.md
+    mode: verbatim
+  - source: template/registers/_schemas/action.md
+    target: registers/_schemas/action.md
+    mode: verbatim
+  - source: template/registers/_schemas/stakeholder.md
+    target: registers/_schemas/stakeholder.md
+    mode: verbatim
+  - source: template/registers/_schemas/requirement.md
+    target: registers/_schemas/requirement.md
+    mode: verbatim
+
+  # --- Standards library (the moat) ---
+  - source: standards/risk-quality.md
+    target: standards/risk-quality.md
+    mode: verbatim
+  - source: standards/rag-evidence.md
+    target: standards/rag-evidence.md
+    mode: verbatim
+  - source: standards/decision-hygiene.md
+    target: standards/decision-hygiene.md
+    mode: verbatim
+  - source: standards/action-quality.md
+    target: standards/action-quality.md
+    mode: verbatim
+  - source: standards/stakeholder-coverage.md
+    target: standards/stakeholder-coverage.md
+    mode: verbatim
+  - source: standards/governance-pack.md
+    target: standards/governance-pack.md
+    mode: verbatim
+  - source: standards/meeting-minutes.md
+    target: standards/meeting-minutes.md
+    mode: verbatim
+
+  # --- Skills (copied into the instance's .claude/skills/) ---
+  - source: skills/project-interview/SKILL.md
+    target: .claude/skills/project-interview/SKILL.md
+    mode: verbatim
+  - source: skills/ingest/SKILL.md
+    target: .claude/skills/ingest/SKILL.md
+    mode: verbatim
+  - source: skills/weekly-review/SKILL.md
+    target: .claude/skills/weekly-review/SKILL.md
+    mode: verbatim
+  - source: skills/risk-register-review/SKILL.md
+    target: .claude/skills/risk-register-review/SKILL.md
+    mode: verbatim
+  - source: skills/status-drift/SKILL.md
+    target: .claude/skills/status-drift/SKILL.md
+    mode: verbatim
+  - source: skills/governance-prep/SKILL.md
+    target: .claude/skills/governance-prep/SKILL.md
+    mode: verbatim
+
+# Empty directories to create in the instance (drop zones, register folders, views, wiki sections).
+directories:
+  - raw/inbox
+  - raw/sources/meetings
+  - raw/sources/governance
+  - raw/sources/reports
+  - raw/sources/registers
+  - raw/sources/contracts
+  - raw/sources/reference
+  - registers/risks
+  - registers/issues
+  - registers/assumptions
+  - registers/dependencies
+  - registers/constraints
+  - registers/decisions
+  - registers/actions
+  - registers/stakeholders
+  - registers/requirements
+  - views
+  - wiki/foundation
+  - wiki/meetings
+  - wiki/governance
+  - wiki/people
+  - wiki/workstreams
+  - wiki/answers
